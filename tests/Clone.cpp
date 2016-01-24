@@ -132,7 +132,8 @@ void TestClone::sshProtocol()
         SKIPTEST("libgit2 is not compiled with SSH support. Skipping SSH clone test.");
     }
 
-    clone(SshRemoteUrl, Credentials::ssh("libqgit2_id_rsa", "libqgit2_id_rsa.pub", "git"));
+    clone(SshRemoteUrl, Credentials::ssh(QCoreApplication::applicationDirPath()+"/libqgit2_id_rsa",
+                                         QCoreApplication::applicationDirPath()+"/libqgit2_id_rsa.pub", "git"));
 }
 
 

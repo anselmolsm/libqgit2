@@ -42,11 +42,6 @@ public:
 class RemoteCallbacks
 {
 public:
-    /**
-     * Doesn't take ownership of \a remote nor \a listener.
-     */
-	RemoteCallbacks(git_remote *remote, RemoteListener *listener, const Credentials &credentials);
-
     RemoteCallbacks(RemoteListener *listener, const Credentials &credentials);
 
     git_remote_callbacks rawCallbacks() const;

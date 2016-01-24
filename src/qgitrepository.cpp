@@ -532,8 +532,10 @@ QStringList Repository::remoteBranches(const QString& remoteName)
     qGitThrow(git_remote_lookup(&_remote, SAFE_DATA, remoteName.toLatin1()));
     Remote remote(_remote, d_ptr->m_remote_credentials.value(remoteName));
 
-    //###git_remote_callbacks
-    qGitThrow(git_remote_connect(remote.data(), GIT_DIRECTION_FETCH, NULL));
+    internal::RemoteCallbacks remoteCallbacks(d_ptr.data(), d_ptr->m_remote_credentials.value(remoteName));
+    const git_remote_callbacks callbacks = remoteCallbacks.rawCallbacks();
+
+    qGitThrow(git_remote_connect(remote.data(), GIT_DIRECTION_FETCH, &callbacks));
     qGitEnsureValue(1, git_remote_connected(remote.data()));
 
     /* List the heads on the remote */

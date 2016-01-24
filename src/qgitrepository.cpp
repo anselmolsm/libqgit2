@@ -483,8 +483,7 @@ void Repository::remoteAdd(const QString& name, const QString& url, bool changeU
     case GIT_OK:
         if (QString::fromLatin1(git_remote_url(r)) != url) {
             if (changeUrlIfExists) {
-                qGitThrow(git_remote_set_url(data(), git_remote_url(r), url.toLatin1()));
-                //API Removed qGitThrow(git_remote_save(r));
+                qGitThrow(git_remote_set_url(data(), git_remote_name(r), url.toLatin1()));
             } else {
                 THROW("remote already exists");
             }

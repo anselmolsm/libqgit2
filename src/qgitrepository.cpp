@@ -459,12 +459,11 @@ void Repository::setRemoteCredentials(const QString& remoteName, Credentials cre
 void Repository::clone(const QString& url, const QString& path, const Signature &signature)
 {
     const QString remoteName("origin");
-//    internal::RemoteCallbacks remoteCallbacks(d_ptr.data(), d_ptr->m_remote_credentials.value(remoteName));
+    internal::RemoteCallbacks remoteCallbacks(d_ptr.data(), d_ptr->m_remote_credentials.value(remoteName));
 
     git_repository *repo = 0;
     git_clone_options opts = GIT_CLONE_OPTIONS_INIT;
-    //opts.remote_callbacks = remoteCallbacks.rawCallbacks();
-    opts.fetch_opts = GIT_FETCH_OPTIONS_INIT; //##
+    opts.fetch_opts.callbacks = remoteCallbacks.rawCallbacks();
     opts.checkout_opts.checkout_strategy = GIT_CHECKOUT_SAFE | GIT_CHECKOUT_RECREATE_MISSING;
     qGitEnsureValue(0, git_clone(&repo, url.toLatin1(), PathCodec::toLibGit2(path), &opts));
 

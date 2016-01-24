@@ -36,7 +36,9 @@ RemoteCallbacks::RemoteCallbacks(git_remote *remote, RemoteListener *listener, c
     m_transferProgress(-1)
 {
     git_remote_callbacks remoteCallbacks = rawCallbacks();
-    qGitThrow(git_remote_set_callbacks(remote, &remoteCallbacks));
+
+    //### API removed git_remote_set_callbacks
+    //qGitThrow(git_remote_set_callbacks(remote, &remoteCallbacks));
 }
 
 RemoteCallbacks::RemoteCallbacks(RemoteListener *listener, const Credentials &credentials) :

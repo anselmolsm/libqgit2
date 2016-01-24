@@ -36,7 +36,7 @@ public:
             native.checkout_strategy |= GIT_CHECKOUT_SAFE;
             break;
         case SafeCreate:
-            native.checkout_strategy |= GIT_CHECKOUT_SAFE_CREATE;
+            native.checkout_strategy |= GIT_CHECKOUT_SAFE | GIT_CHECKOUT_RECREATE_MISSING;
             break;
         case Force:
             native.checkout_strategy |= GIT_CHECKOUT_FORCE;

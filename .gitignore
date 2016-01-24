@@ -18,3 +18,14 @@ moc_*.cpp
 qrc_*.cpp
 Makefile
 *-build-*
+*.moc
+*_automoc.cpp
+CMakeFiles
+CMakeCache.txt
+CMakeLists.txt.*
+/TestDir
+/Testing
+/bin
+Doxyfile
+*.cmake
+*.cbp

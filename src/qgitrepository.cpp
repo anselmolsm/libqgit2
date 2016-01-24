@@ -519,8 +519,11 @@ void Repository::fetch(const QString& name, const QString& head, const Signature
         refs.set(QList<QByteArray>() << refspec.toLatin1());
     }
 
-    //### git_fetch_options
-    qGitThrow(git_remote_fetch(remote.data(), refs.count() > 0 ? &refs.data() : NULL, NULL, message.isNull() ? NULL : message.toUtf8().constData()));
+    internal::RemoteCallbacks remoteCallbacks(d_ptr.data(), d_ptr->m_remote_credentials.value(name));
+    git_fetch_options opts = GIT_FETCH_OPTIONS_INIT;
+    opts.callbacks = remoteCallbacks.rawCallbacks();
+
+    qGitThrow(git_remote_fetch(remote.data(), refs.count() > 0 ? &refs.data() : NULL, &opts, message.isNull() ? NULL : message.toUtf8().constData()));
 }
 
 

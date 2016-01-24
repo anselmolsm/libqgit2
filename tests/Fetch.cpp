@@ -209,7 +209,8 @@ void TestFetch::fetchSSH()
     try {
         repo.init(repoPath);
         repo.remoteAdd("origin", SshRemoteUrl);
-        repo.setRemoteCredentials("origin", Credentials::ssh("libqgit2_id_rsa", "libqgit2_id_rsa.pub", "git"));
+        repo.setRemoteCredentials("origin", Credentials::ssh(QCoreApplication::applicationDirPath()+"/libqgit2_id_rsa",
+                                                             QCoreApplication::applicationDirPath()+"/libqgit2_id_rsa.pub", "git"));
         repo.fetch("origin", "master");
     }
     catch (const LibQGit2::Exception& ex) {
